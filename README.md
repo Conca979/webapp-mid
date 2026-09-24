@@ -1,4 +1,4 @@
-**137-Question Assessment Portal**
+**157-Question Assessment Portal & Exam Revision Guide**
 
 ---
 
@@ -38,7 +38,7 @@ webapp/
 
 ---
 
-## How to use This Repository
+## How to Use This Repository
 
 ### Instant Offline Practice (Zero Setup / Recommended)
 
@@ -50,19 +50,27 @@ You do **not** need to install Node.js, Python, or a database to practice:
 
 ## High-Yield Midterm Exam Traps Summary
 
-Review these recurring traps tested across past USTH exams:
+Review these recurring traps tested across past exams and code prediction scenarios:
 
 | Concept | Trap / Misconception | Ground Truth |
 | :--- | :--- | :--- |
 | **`<!DOCTYPE html>`** | Believing it is an HTML root tag requiring `</!DOCTYPE>`. | It is a preamble that prevents the browser rendering engine from dropping into legacy Quirks Mode. |
 | **`box-sizing`** | Calculating total width as `width` when using `box-sizing: content-box`. | In `content-box`, total width = `width + padding + border`. In `border-box`, padding and border are absorbed inside `width`. |
 | **CSS Specificity** | Thinking multiple class selectors can override an ID selector. | Specificity is a tuple `(IDs, Classes, Elements)`. 1 ID `(1, 0, 0)` beats 100 classes `(0, 100, 0)`. |
+| **`!important` vs JS** | Assuming `el.style.color = "green"` overrides stylesheet rules. | Regular JS inline style assignments cannot override a stylesheet declaration flagged with `!important`. |
+| **`el.style` vs `getComputedStyle`** | Trying to read CSS stylesheet properties via `el.style.color`. | `el.style` ONLY inspects inline `style=""` attributes. Styles from external stylesheets return `""`. Use `window.getComputedStyle(el)`. |
+| **`display: none` vs `visibility: hidden`** | Believing both elements have non-zero `offsetWidth`. | `display: none` removes the element from the render tree (`offsetWidth = 0`). `visibility: hidden` maintains geometry (`offsetWidth > 0`). |
+| **`e.target` vs `e.currentTarget`** | Assuming `e.target` is always the element where `addEventListener` was registered. | `e.target` is the lowest innermost element initiating the event; `e.currentTarget` (and `this`) is the element where the handler is bound. |
+| **`children` vs `childNodes`** | Treating `childNodes.length` as equivalent to element tag count. | `children` contains only Element nodes (`nodeType === 1`). `childNodes` includes whitespace/newline Text nodes and comments. |
+| **Event Loop Microtasks** | Believing `setTimeout(fn, 0)` runs before `.then()` promise callbacks. | Promise callbacks are placed in the Microtask queue, which is completely emptied before any Macrotask (`setTimeout`). |
 | **`const` in JS** | Believing `const obj = {}` makes object properties immutable. | `const` protects the variable binding reference from reassignment. Properties (`obj.price = 50`) can be freely modified. |
 | **`typeof null`** | Expecting `typeof null` to return `"null"`. | Returns `"object"` due to a legacy 1995 type-tagging bug where null was represented as a NULL pointer (`0x00`). |
 | **`NaN` Identity** | Expecting `NaN === NaN` to evaluate to `true`. | Under IEEE 754, `NaN` is never equal to itself. Must test using `Number.isNaN(x)`. |
 | **Fetch 404/500** | Assuming `fetch()` rejects (jumps to `catch`) on HTTP 404 or 500. | `fetch()` resolves successfully on 404/500 because the HTTP transaction completed. You must manually check `if (!res.ok)`. |
 | **Event Delegation** | Trying to delegate `blur` or `focus` on a parent `<form>`. | `blur` and `focus` do not bubble (`bubbles: false`). You must listen for `focusout` or `focusin` instead. |
 | **CORS Origins** | Assuming `http://127.0.0.1:5500` can fetch `http://127.0.0.1:3000`. | Origin is defined as `(protocol, host, port)`. Different ports make it cross-origin and blocked by the browser SOP. |
+| **Checkbox `preventDefault()`** | Expecting `this.checked` to be `true` after clicking an unchecked box with `preventDefault()`. | `preventDefault()` cancels the browser default toggling behavior, keeping `this.checked = false`. |
+| **HTML Form Validation** | Expecting empty `required type="email"` to trigger `typeMismatch: true`. | Empty inputs fail `valueMissing: true`; format validation (`typeMismatch`) only triggers on non-empty values. |
 
 ---
 

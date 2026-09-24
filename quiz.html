@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>USTH Assessment Portal — Web Application Development</title>
-  
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
 
   <style>
     :root {
@@ -462,6 +465,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Header -->
@@ -482,7 +486,12 @@
       <div class="actions-group">
         <input type="file" id="json-file-input" accept=".json" style="display: none;">
         <button id="btn-import-json" class="action-btn btn-secondary" title="Load custom JSON Question Bank">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
           Import JSON
         </button>
         <button id="btn-submit" class="action-btn btn-submit">Submit Quiz</button>
@@ -670,8 +679,8 @@
           `;
         }).join("") : "";
 
-        const codeBlockHtml = q.codeSnippet 
-          ? `<pre><code>${escapeHtml(q.codeSnippet)}</code></pre>` 
+        const codeBlockHtml = q.codeSnippet
+          ? `<pre><code>${escapeHtml(q.codeSnippet)}</code></pre>`
           : "";
 
         card.innerHTML = `
@@ -864,4 +873,5 @@
     initQuestions();
   </script>
 </body>
+
 </html>

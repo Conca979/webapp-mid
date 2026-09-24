@@ -4499,5 +4499,705 @@ window.DEFAULT_QUESTION_BANK = [
         "rationale":  "Standard ECMAScript core language syntax and DOM specification.",
         "tier":  "Tier 1: Syntax \u0026 Rules",
         "prompt":  "Is JavaScript case-sensitive?"
+    },
+    {
+        "id":  "mod4_q1",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "Consider the following HTML, CSS, and JavaScript snippet. What is printed to the browser console?",
+        "codeSnippet":  "\u003cstyle\u003e\n  .alert-box { color: red; font-size: 16px; }\n\u003c/style\u003e\n\u003cdiv id=\"notice\" class=\"alert-box\"\u003eWarning!\u003c/div\u003e\n\u003cscript\u003e\n  const el = document.getElementById(\"notice\");\n  console.log(el.style.color, getComputedStyle(el).color);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"\" \"rgb(255, 0, 0)\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"red\" \"red\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"rgb(255, 0, 0)\" \"rgb(255, 0, 0)\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "null \"red\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "The DOM element.style property ONLY accesses inline style attributes explicitly defined on the element tag (e.g., style=\"color: red\"). Styles applied via stylesheets return an empty string \"\". In contrast, window.getComputedStyle(el) computes the active resolved styles from the CSS cascading pipeline and returns the color in standard RGB notation: \"rgb(255, 0, 0)\".",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains inline style property limits vs getComputedStyle().",
+                            "B":  "Fails because el.style.color cannot read external or \u003cstyle\u003e rules.",
+                            "C":  "Fails because el.style.color does not compute stylesheet rules.",
+                            "D":  "Fails because unset inline style properties return empty string \"\", not null."
+                        }
+    },
+    {
+        "id":  "mod4_q2",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "A user clicks directly on the \u003cbutton\u003e element with text \u0027Confirm\u0027. What does the console log?",
+        "codeSnippet":  "\u003cdiv id=\"modal\" style=\"padding: 20px;\"\u003e\n  \u003cbutton id=\"btn-confirm\"\u003eConfirm\u003c/button\u003e\n\u003c/div\u003e\n\u003cscript\u003e\n  document.getElementById(\"modal\").addEventListener(\"click\", function(e) {\n    console.log(e.target.id, e.currentTarget.id, this.id);\n  });\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"btn-confirm modal modal\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"modal modal modal\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"btn-confirm btn-confirm btn-confirm\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "\"modal btn-confirm modal\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "In DOM event propagation, e.target is the innermost element that originated the user action (the button). e.currentTarget is the element to which the event handler was attached (the modal div). Inside standard function() event listeners, this is bound to e.currentTarget (\"modal\").",
+        "distractors":  {
+                            "A":  "OPTIMAL: Precise distinction between event target, currentTarget, and this binding.",
+                            "B":  "Fails because e.target points to the button where the click originated.",
+                            "C":  "Fails because e.currentTarget refers to the modal container carrying the listener.",
+                            "D":  "Fails because target is the button and currentTarget is the modal."
+                        }
+    },
+    {
+        "id":  "mod4_q3",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is printed to the console after executing the following script?",
+        "codeSnippet":  "\u003cdiv id=\"container\"\u003e\n  \u003cspan\u003eHello\u003c/span\u003e World\n\u003c/div\u003e\n\u003cscript\u003e\n  const c = document.getElementById(\"container\");\n  console.log(c.children.length, c.childNodes.length);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "1 3"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "2 2"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "1 2"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "2 3"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "c.children returns only Element nodes (NodeType 1). Only the \u003cspan\u003e is an element node, so children.length is 1. c.childNodes returns all DOM nodes including Text nodes (NodeType 3): (1) newline/indent before span, (2) span element, and (3) text node containing \u0027 World\\n\u0027. Thus, childNodes.length is 3.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Accurately distinguishes Element nodes (children) from all DOM nodes (childNodes).",
+                            "B":  "Fails because \u0027 World\u0027 is a Text node, not an Element node.",
+                            "C":  "Fails because whitespace before the span creates a separate Text node.",
+                            "D":  "Fails because container contains only 1 element child."
+                        }
+    },
+    {
+        "id":  "mod4_q4",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is the exact sequence of outputs logged to the console?",
+        "codeSnippet":  "console.log(\"1\");\nsetTimeout(() =\u003e console.log(\"2\"), 0);\nPromise.resolve().then(() =\u003e console.log(\"3\"));\nPromise.resolve().then(() =\u003e {\n  console.log(\"4\");\n  setTimeout(() =\u003e console.log(\"5\"), 0);\n});\nconsole.log(\"6\");",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"1\", \"6\", \"3\", \"4\", \"2\", \"5\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"1\", \"2\", \"3\", \"4\", \"5\", \"6\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"1\", \"6\", \"2\", \"3\", \"4\", \"5\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "\"1\", \"3\", \"4\", \"6\", \"2\", \"5\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Synchronous code runs first on the Call Stack: \"1\", then \"6\". Next, the Event Loop exhausts the Microtask Queue (Promises): \"3\", then \"4\". During microtask 4, a new setTimeout is queued. Finally, the Macrotask Queue runs in FIFO order: first setTimeout prints \"2\", then second prints \"5\".",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains exact Call Stack -\u003e Microtask Queue -\u003e Macrotask Queue execution order.",
+                            "B":  "Fails because setTimeout callbacks do not run synchronously.",
+                            "C":  "Fails because microtasks (Promises) execute before macrotasks (setTimeout).",
+                            "D":  "Fails because synchronous \u00276\u0027 executes before any microtask queue processing."
+                        }
+    },
+    {
+        "id":  "mod4_q5",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is logged to the console regarding the rendered width of both boxes?",
+        "codeSnippet":  "\u003cstyle\u003e\n  #boxA { display: none; width: 120px; height: 60px; }\n  #boxB { visibility: hidden; width: 120px; height: 60px; }\n\u003c/style\u003e\n\u003cdiv id=\"boxA\"\u003eAlpha\u003c/div\u003e\n\u003cdiv id=\"boxB\"\u003eBeta\u003c/div\u003e\n\u003cscript\u003e\n  const a = document.getElementById(\"boxA\");\n  const b = document.getElementById(\"boxB\");\n  console.log(a.offsetWidth, b.offsetWidth);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "0 120"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "120 120"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "0 0"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "undefined 120"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "display: none removes the element entirely from the layout render tree, so offsetWidth is 0. visibility: hidden hides the pixels visually but preserves the layout bounding box in document flow, so offsetWidth returns its computed 120px.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains DOM rendering engine difference between display: none and visibility: hidden.",
+                            "B":  "Fails because display: none generates no layout box and has 0 offset dimensions.",
+                            "C":  "Fails because visibility: hidden reserves space and computes offsetWidth.",
+                            "D":  "Fails because offsetWidth returns numeric pixel measurements, never undefined."
+                        }
+    },
+    {
+        "id":  "mod4_q6",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What color is rendered on the screen for the text \u0027USTH\u0027, and what does getComputedStyle return?",
+        "codeSnippet":  "\u003cstyle\u003e\n  #banner { color: blue; }\n  div.hero { color: red !important; }\n\u003c/style\u003e\n\u003cdiv id=\"banner\" class=\"hero\"\u003eUSTH\u003c/div\u003e\n\u003cscript\u003e\n  const el = document.getElementById(\"banner\");\n  el.style.color = \"green\";\n  console.log(getComputedStyle(el).color);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "rgb(255, 0, 0) (Red)"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "rgb(0, 128, 0) (Green)"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "rgb(0, 0, 255) (Blue)"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "SyntaxError"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Normal inline style assignments via JavaScript (el.style.color = \u0027green\u0027) carry high specificity, but they CANNOT override a CSS declaration marked with \u0027!important\u0027 in a stylesheet. Thus, \u0027div.hero { color: red !important; }\u0027 wins the cascade, rendering the text in red.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains that !important in stylesheets overrides normal JS inline styles.",
+                            "B":  "Fails because regular inline style cannot override !important.",
+                            "C":  "Fails because ID selector without !important is beaten by class selector with !important.",
+                            "D":  "Fails because modifying DOM style properties via JS is completely valid."
+                        }
+    },
+    {
+        "id":  "mod4_q7",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "A user clicks the second button (labeled \u0027B\u0027). What is logged to the console?",
+        "codeSnippet":  "\u003cbutton class=\"nav-btn\"\u003eA\u003c/button\u003e\n\u003cbutton class=\"nav-btn\"\u003eB\u003c/button\u003e\n\u003cbutton class=\"nav-btn\"\u003eC\u003c/button\u003e\n\u003cscript\u003e\n  var buttons = document.querySelectorAll(\".nav-btn\");\n  for (var i = 0; i \u003c buttons.length; i++) {\n    buttons[i].addEventListener(\"click\", function() {\n      console.log(i, buttons[i] ? buttons[i].textContent : \"none\");\n    });\n  }\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "3 \"none\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "1 \"B\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "2 \"B\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "0 \"A\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Because \u0027var i\u0027 is function/globally scoped, a single shared binding of \u0027i\u0027 exists across all iterations. By the time a user clicks, the loop has finished and i === 3. Accessing buttons[3] returns undefined, so the ternary evaluates to \"none\". Replacing var with let would create a new binding for each iteration.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Demonstrates the classic closure scope bug with var in loops.",
+                            "B":  "Fails because var does not retain per-iteration scope.",
+                            "C":  "Fails because buttons is zero-indexed and i reached 3.",
+                            "D":  "Fails because i is evaluated at click time, not registration time."
+                        }
+    },
+    {
+        "id":  "mod4_q8",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "When the user clicks the \u003cp\u003e element with text \u0027Click\u0027, what is the exact console output order?",
+        "codeSnippet":  "\u003cdiv id=\"outer\"\u003e\n  \u003csection id=\"middle\"\u003e\n    \u003cp id=\"inner\"\u003eClick\u003c/p\u003e\n  \u003c/section\u003e\n\u003c/div\u003e\n\u003cscript\u003e\n  const outer = document.getElementById(\"outer\");\n  const middle = document.getElementById(\"middle\");\n  const inner = document.getElementById(\"inner\");\n\n  outer.addEventListener(\"click\", () =\u003e console.log(\"1. Outer Capture\"), true);\n  middle.addEventListener(\"click\", () =\u003e console.log(\"2. Middle Bubble\"), false);\n  inner.addEventListener(\"click\", () =\u003e console.log(\"3. Inner Target\"), false);\n  outer.addEventListener(\"click\", () =\u003e console.log(\"4. Outer Bubble\"), false);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"1. Outer Capture\", \"3. Inner Target\", \"2. Middle Bubble\", \"4. Outer Bubble\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"3. Inner Target\", \"2. Middle Bubble\", \"4. Outer Bubble\", \"1. Outer Capture\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"1. Outer Capture\", \"2. Middle Bubble\", \"3. Inner Target\", \"4. Outer Bubble\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "\"3. Inner Target\", \"1. Outer Capture\", \"2. Middle Bubble\", \"4. Outer Bubble\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "DOM event propagation has 3 phases: (1) Capturing phase from window downward to target, triggering outer listener with true -\u003e \"1. Outer Capture\". (2) Target phase at #inner -\u003e \"3. Inner Target\". (3) Bubbling phase upward from target to window, triggering middle (\"2. Middle Bubble\"), then outer (\"4. Outer Bubble\").",
+        "distractors":  {
+                            "A":  "OPTIMAL: Accurate walkthrough of Capture -\u003e Target -\u003e Bubble sequence.",
+                            "B":  "Fails because capture listeners fire before the target phase.",
+                            "C":  "Fails because middle listener has useCapture: false and only fires during bubbling.",
+                            "D":  "Fails because target does not run before capturing ancestors."
+                        }
+    },
+    {
+        "id":  "mod4_q9",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What values are logged to the console for clientWidth and offsetWidth?",
+        "codeSnippet":  "\u003cstyle\u003e\n  #card {\n    width: 200px;\n    height: 100px;\n    padding: 15px;\n    border: 5px solid black;\n    margin: 25px;\n    box-sizing: content-box;\n  }\n\u003c/style\u003e\n\u003cdiv id=\"card\"\u003eItem\u003c/div\u003e\n\u003cscript\u003e\n  const el = document.getElementById(\"card\");\n  console.log(el.clientWidth, el.offsetWidth);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "230 240"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "200 240"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "230 290"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "240 290"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Under content-box: clientWidth = width + left/right padding = 200 + 15 + 15 = 230px (excludes border \u0026 margin). offsetWidth = width + left/right padding + left/right border = 200 + 30 + 10 = 240px (excludes margin). Margin (25px) affects outer layout spacing only.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Correct calculation of clientWidth (content+padding) and offsetWidth (+border).",
+                            "B":  "Fails because clientWidth includes padding.",
+                            "C":  "Fails because offsetWidth does not include margin.",
+                            "D":  "Fails because clientWidth excludes borders."
+                        }
+    },
+    {
+        "id":  "mod4_q10",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is logged to the console when inspecting this input value?",
+        "codeSnippet":  "\u003cinput id=\"score\" type=\"number\" value=\"100\"\u003e\n\u003cscript\u003e\n  const input = document.getElementById(\"score\");\n  const val = input.value;\n  console.log(typeof val, val === 100, val == 100);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"string\" false true"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"number\" true true"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"string\" true true"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "\"number\" false true"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "In the HTML DOM specification, input.value ALWAYS returns a string, even when type=\"number\". Thus, val is \"100\". Strict equality val === 100 checks both value and type (\"string\" === 100 evaluates to false). Loose equality val == 100 coerces the string to a number and returns true.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains DOM input.value string type rule and strict vs loose equality.",
+                            "B":  "Fails because input.value is never a JavaScript number primitive.",
+                            "C":  "Fails because strict equality does not perform type coercion.",
+                            "D":  "Fails because typeof val is string."
+                        }
+    },
+    {
+        "id":  "mod4_q11",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is printed to the console when reading dataset properties?",
+        "codeSnippet":  "\u003cdiv id=\"user\" data-user-name=\"Alex\" data-is-admin=\"true\" data-role_id=\"5\"\u003e\u003c/div\u003e\n\u003cscript\u003e\n  const ds = document.getElementById(\"user\").dataset;\n  console.log(ds.userName, ds.isAdmin, ds.role_id, typeof ds.isAdmin);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"Alex\" \"true\" \"5\" \"string\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"Alex\" true 5 \"boolean\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "undefined \"true\" \"5\" \"string\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "\"Alex\" \"true\" undefined \"string\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "HTML data-* attributes map to element.dataset using camelCase for hyphens: data-user-name -\u003e ds.userName; data-is-admin -\u003e ds.isAdmin. Underscores are preserved: data-role_id -\u003e ds.role_id. Crucially, all dataset values are strings, so typeof ds.isAdmin is \"string\", not boolean.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains camelCase mapping and string-only type storage in dataset.",
+                            "B":  "Fails because dataset does not convert strings to boolean or number primitives.",
+                            "C":  "Fails because data-user-name maps directly to ds.userName.",
+                            "D":  "Fails because data-role_id is accessible via ds.role_id."
+                        }
+    },
+    {
+        "id":  "mod4_q12",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What happens when this script executes in a modern browser?",
+        "codeSnippet":  "\u003cdiv id=\"target\"\u003eInitial\u003c/div\u003e\n\u003cscript\u003e\n  const t = document.getElementById(\"target\");\n  t.innerHTML = \"\u003cscript\u003econsole.log(\u0027XSS\u0027);\u003c\\/script\u003e\u003cb\u003eUpdated\u003c/b\u003e\";\n  console.log(t.children.length, t.textContent);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\u0027XSS\u0027 is NOT logged; t.children.length is 2; t.textContent is \"console.log(\u0027XSS\u0027);Updated\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\u0027XSS\u0027 is logged; t.children.length is 1; t.textContent is \"Updated\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\u0027XSS\u0027 is NOT logged; t.children.length is 1; t.textContent is \"Updated\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "A security exception is thrown at runtime"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Per HTML5 specifications, \u003cscript\u003e tags inserted via innerHTML are deliberately NOT executed to prevent naive script injection attacks. However, the parser still instantiates both the \u003cscript\u003e element and the \u003cb\u003e element in the DOM tree (children.length === 2). textContent concatenates the text inside both elements.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains HTML5 innerHTML script non-execution security rule and DOM tree nodes.",
+                            "B":  "Fails because innerHTML does not execute scripts.",
+                            "C":  "Fails because \u003cscript\u003e is still created as an element child node.",
+                            "D":  "Fails because setting innerHTML does not throw a security exception."
+                        }
+    },
+    {
+        "id":  "mod4_q13",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is printed to the console following classList.toggle operations?",
+        "codeSnippet":  "\u003cdiv id=\"panel\" class=\"open active\"\u003eContent\u003c/div\u003e\n\u003cscript\u003e\n  const p = document.getElementById(\"panel\");\n  const a = p.classList.toggle(\"active\");\n  const b = p.classList.toggle(\"hidden\");\n  console.log(a, b, p.className);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "false true \"open hidden\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "true false \"open active hidden\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "false false \"open\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "undefined undefined \"open hidden\""
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "classList.toggle(token) returns true if the token is added, and false if removed. \"active\" existed, so it was removed (returns false). \"hidden\" did not exist, so it was added (returns true). The resulting className string is \"open hidden\".",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains boolean return semantics and DOM state mutation of classList.toggle.",
+                            "B":  "Fails because active was removed and hidden was added.",
+                            "C":  "Fails because toggle adds hidden when absent.",
+                            "D":  "Fails because classList.toggle returns a boolean, not undefined."
+                        }
+    },
+    {
+        "id":  "mod4_q14",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "If the server at \u0027/api/user\u0027 responds with HTTP 500 Internal Server Error (returning an HTML error page), what is logged to the console?",
+        "codeSnippet":  "async function fetchUser() {\n  try {\n    const res = await fetch(\"/api/user\");\n    console.log(\"Step 1:\", res.ok);\n    const data = await res.json();\n    console.log(\"Step 2:\", data);\n  } catch (err) {\n    console.log(\"Step 3: Catch Block\");\n  }\n}\nfetchUser();",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"Step 1: false\", followed by \"Step 3: Catch Block\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"Step 3: Catch Block\" immediately without Step 1"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"Step 1: true\", followed by \"Step 2: null\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "Uncaught NetworkError in console"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "fetch() does NOT reject on 4xx/5xx HTTP errors because the network transaction completed successfully. res.ok is false (status 500 is not in 200–299), printing \u0027Step 1: false\u0027. Then res.json() tries to parse the 500 HTML response as JSON, throwing a SyntaxError that triggers \u0027Step 3: Catch Block\u0027.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Teaches the #1 Fetch API trap regarding res.ok and JSON parsing of error bodies.",
+                            "B":  "Fails because fetch() resolves rather than rejects on HTTP 500.",
+                            "C":  "Fails because res.ok is false for status 500.",
+                            "D":  "Fails because the error is caught cleanly inside the catch block."
+                        }
+    },
+    {
+        "id":  "mod4_q15",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is logged to the console after detaching an element from the DOM?",
+        "codeSnippet":  "\u003cdiv id=\"app\"\u003e\u003cp id=\"msg\"\u003eWelcome\u003c/p\u003e\u003c/div\u003e\n\u003cscript\u003e\n  const msg = document.getElementById(\"msg\");\n  msg.remove();\n  console.log(msg.textContent, document.getElementById(\"msg\"), msg.parentNode);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"Welcome\" null null"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "null null null"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"Welcome\" \u003cp id=\"msg\"\u003e \u003cdiv id=\"app\"\u003e"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "TypeError: Cannot read properties of removed element"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "msg.remove() unlinks the node from its parent (msg.parentNode becomes null) and active DOM document (getElementById returns null). However, JavaScript holds a memory reference in variable \u0027msg\u0027, so its properties (msg.textContent === \"Welcome\") remain fully accessible.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains DOM tree detachment vs JavaScript heap memory reference persistence.",
+                            "B":  "Fails because msg is a valid in-memory object and retains its textContent.",
+                            "C":  "Fails because the node was detached from document and parent.",
+                            "D":  "Fails because removed DOM elements remain valid JavaScript objects."
+                        }
+    },
+    {
+        "id":  "mod4_q16",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "A user clicks an unchecked checkbox on the screen. What is logged and what is the visual outcome?",
+        "codeSnippet":  "\u003cinput type=\"checkbox\" id=\"terms\"\u003e\n\u003cscript\u003e\n  const chk = document.getElementById(\"terms\");\n  chk.addEventListener(\"click\", function(e) {\n    e.preventDefault();\n    console.log(\"Checked is:\", this.checked);\n  });\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"Checked is: false\" and the checkbox remains unchecked."
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"Checked is: true\" and the checkbox becomes checked."
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"Checked is: true\" but the checkbox visually unchecks on blur."
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "The click handler does not execute due to preventDefault."
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Calling e.preventDefault() in a checkbox click handler prevents the browser\u0027s default action of toggling the checked state. The property remains false, and the box remains visually unchecked.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Demonstrates how preventDefault halts native input state toggles.",
+                            "B":  "Fails because default action is cancelled before the toggle takes effect.",
+                            "C":  "Fails because this.checked never became true.",
+                            "D":  "Fails because preventDefault cancels default action, not listener execution."
+                        }
+    },
+    {
+        "id":  "mod4_q17",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is logged to the console for HTML5 form validation checks?",
+        "codeSnippet":  "\u003cform id=\"auth\"\u003e\n  \u003cinput id=\"email\" type=\"email\" required value=\"\"\u003e\n\u003c/form\u003e\n\u003cscript\u003e\n  const input = document.getElementById(\"email\");\n  console.log(input.checkValidity(), input.validity.valueMissing, input.validity.typeMismatch);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "false true false"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "false true true"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "true false false"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "false false true"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "checkValidity() returns false because the required input is empty. validity.valueMissing is true. Crucially, validity.typeMismatch is false because type format validation only evaluates non-empty strings.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains Constraint Validation API states (valueMissing vs typeMismatch).",
+                            "B":  "Fails because typeMismatch is false for empty strings.",
+                            "C":  "Fails because empty required inputs fail validity.",
+                            "D":  "Fails because valueMissing is true."
+                        }
+    },
+    {
+        "id":  "mod4_q18",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is the visual alignment of the \u0027#item\u0027 box after the script executes?",
+        "codeSnippet":  "\u003cstyle\u003e\n  #container {\n    display: flex;\n    flex-direction: row;\n    justify-content: center;\n    align-items: flex-start;\n    height: 400px;\n    width: 400px;\n  }\n\u003c/style\u003e\n\u003cdiv id=\"container\"\u003e\u003cdiv id=\"item\"\u003eBox\u003c/div\u003e\u003c/div\u003e\n\u003cscript\u003e\n  document.getElementById(\"container\").style.flexDirection = \"column\";\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "Centered vertically (Y-axis) and aligned to the left edge (X-axis)."
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "Centered horizontally (X-axis) and aligned to the top edge (Y-axis)."
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "Centered both horizontally and vertically."
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "Aligned to the top-left corner."
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "Switching flexDirection to \u0027column\u0027 rotates the Main Axis to vertical (Y) and the Cross Axis to horizontal (X). justify-content: center now centers along the Main Axis (vertically), while align-items: flex-start aligns along the Cross Axis (left edge).",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains flex axis rotation and alignment redistribution.",
+                            "B":  "Fails because it assumes the main axis is still horizontal (row).",
+                            "C":  "Fails because align-items is flex-start, not center.",
+                            "D":  "Fails because justify-content: center prevents top alignment."
+                        }
+    },
+    {
+        "id":  "mod4_q19",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What is logged to the console after executing this code?",
+        "codeSnippet":  "const userA = { name: \"Thang\", role: \"Student\" };\nconst userB = userA;\nuserB.role = \"Admin\";\n\nfunction update(u) {\n  u.role = \"Instructor\";\n  u = { name: \"Guest\", role: \"Anonymous\" };\n}\n\nupdate(userA);\nconsole.log(userA.name, userA.role);",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"Thang\" \"Instructor\""
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"Guest\" \"Anonymous\""
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "\"Thang\" \"Admin\""
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "TypeError: Assignment to constant variable"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "userB = userA copies the memory reference, so userB.role modifies the object in place. Inside update(u), u.role = \u0027Instructor\u0027 also mutates the underlying heap object. However, reassigning u = {...} only updates the local function parameter pointer, leaving userA unaffected. Thus, userA.name is \"Thang\" and userA.role is \"Instructor\".",
+        "distractors":  {
+                            "A":  "OPTIMAL: Explains object reference mutation vs parameter reassignment in JS.",
+                            "B":  "Fails because reassigning parameter u does not mutate outer userA.",
+                            "C":  "Fails because u.role = \u0027Instructor\u0027 successfully mutated the object.",
+                            "D":  "Fails because const prevents reassigning userA, not mutating its properties."
+                        }
+    },
+    {
+        "id":  "mod4_q20",
+        "module":  "mod4",
+        "moduleLabel":  "Full-Stack Code Tracing",
+        "tier":  "Tier 3: Reasoning \u0026 Debugging",
+        "isTier3":  true,
+        "prompt":  "What does the console display?",
+        "codeSnippet":  "\u003cdiv class=\"card\"\u003e\n  \u003cinput type=\"checkbox\" checked\u003e\n  \u003cinput type=\"checkbox\"\u003e\n\u003c/div\u003e\n\u003cdiv class=\"card\"\u003e\n  \u003cinput type=\"checkbox\" checked\u003e\n\u003c/div\u003e\n\u003cscript\u003e\n  const a = document.querySelector(\".card input[checked]\");\n  const b = document.querySelectorAll(\".card input:checked\");\n  console.log(a.type, b.length);\n\u003c/script\u003e",
+        "options":  [
+                        {
+                            "letter":  "A",
+                            "text":  "\"checkbox\" 2"
+                        },
+                        {
+                            "letter":  "B",
+                            "text":  "\"checkbox\" 1"
+                        },
+                        {
+                            "letter":  "C",
+                            "text":  "undefined 2"
+                        },
+                        {
+                            "letter":  "D",
+                            "text":  "null 3"
+                        }
+                    ],
+        "correct":  "A",
+        "rationale":  "document.querySelector returns the first matching element, so a.type evaluates to \"checkbox\". document.querySelectorAll returns a static NodeList of all matching elements. There are 2 checked boxes across both card containers, so b.length evaluates to 2.",
+        "distractors":  {
+                            "A":  "OPTIMAL: Accurately explains querySelector (first element) vs querySelectorAll (all elements).",
+                            "B":  "Fails because querySelectorAll finds checked inputs across all cards (2 total).",
+                            "C":  "Fails because a is a valid input element whose type is \"checkbox\".",
+                            "D":  "Fails because matches exist in both queries."
+                        }
     }
 ];
