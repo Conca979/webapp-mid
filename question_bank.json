@@ -1195,7 +1195,7 @@
         "moduleLabel":  "HTML \u0026 CSS",
         "tier":  "Tier 2: Concept",
         "isTier3":  false,
-        "prompt":  "If the declaration \u0027box-sizing: border-box;\u0027 is added to the \u0027.card\u0027 rule in Question 17, how does the element\u0027s layout change?",
+        "prompt":  "If the declaration \u0027box-sizing: border-box;\u0027 is added to the \u0027.card\u0027 rule in the previous (above) question, how does the element\u0027s layout change?",
         "codeSnippet":  null,
         "options":  [
                         {
